@@ -1,3 +1,4 @@
+
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 const counterSlice = createSlice({
@@ -12,8 +13,11 @@ const counterSlice = createSlice({
          }
     }
 })
+
+
 export const actions = counterSlice.actions;
 const store = configureStore({
     reducer: counterSlice.reducer
 })
 export default store;
+
