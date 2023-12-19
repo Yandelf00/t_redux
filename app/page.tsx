@@ -4,6 +4,7 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { actions } from '@/store'
+import Try from '@/components/Try'
 
 export default function Home() {
   const count  = useSelector((state : any) => state.counter);
@@ -22,9 +23,7 @@ export default function Home() {
           <div className='text-[3rem] mr-20 cursor-pointer' onClick={increment}>+</div>
           <div className='text-[3rem] ml-10 cursor-pointer' onClick={sub}>-</div>
         </div>
-        <div>
-          <button className='text-[2rem] text-white bg-slate-800'>show cart</button>
-        </div>
+        <Try/>
       </div>
     </main>
   )
