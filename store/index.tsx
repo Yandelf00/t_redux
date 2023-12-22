@@ -2,28 +2,32 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 
 const getInitialState = () => {
-    const isServer = typeof window === 'undefined';
-    
-    // If it's the server, return a default state
-    if (isServer) {
-      return { counter: 0 };
+    if (typeof window !== 'undefined') {
+      const storedState = localStorage.getItem("counterSstate");
+      return storedState ? JSON.parse(storedState) : { counter: 0 };
     }
-  
-    // If it's the client, retrieve the state from local storage
-    const storedState = localStorage.getItem("counterState");
-    return storedState ? JSON.parse(storedState) : { counter: 0 };
-};
+    else{
+        return;
+    }
+  };
 
 const counterSlice = createSlice({
     name : 'counter',
     initialState : getInitialState(),
     reducers : {
-        increment(state, action) {
-            state.counter++;
-         },
-        decrement(state, action) {
-            state.counter--;
-         }
+        increment(state) {
+            if (state.counter!==null)
+            {
+                state.counter++;
+            }
+        },
+        decrement(state) {
+            if (state.counter!==null)
+            {
+                state.counter--;
+            }
+        }
+         
     }
 })
 
@@ -34,7 +38,7 @@ const store = configureStore({
 })
 
 store.subscribe(() => {
-    localStorage.setItem("counterState", JSON.stringify(store.getState()));
+    localStorage.setItem("counterSstate", JSON.stringify(store.getState()));
 });
 export default store;
 
