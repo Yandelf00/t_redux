@@ -1,19 +1,25 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import {
+    persistStore,
+    persistReducer,
+    FLUSH,
+    REHYDRATE,
+    PAUSE,
+    PERSIST,
+    PURGE,
+    REGISTER,
+  } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 
-
-const getInitialState = () => {
-    if (typeof window !== 'undefined') {
-      const storedState = localStorage.getItem("counterSstate");
-      return storedState ? JSON.parse(storedState) : { counter: 0 };
-    }
-    else{
-        return;
-    }
-  };
+const persistConfig = {
+    key: 'root',
+    version: 1,
+    storage,
+}
 
 const counterSlice = createSlice({
     name : 'counter',
-    initialState : getInitialState(),
+    initialState : {counter : 0 },
     reducers : {
         increment(state) {
             if (state.counter!==null)
@@ -32,13 +38,18 @@ const counterSlice = createSlice({
 })
 
 
-export const actions = counterSlice.actions;
+const persistedReducer = persistReducer(persistConfig, counterSlice.reducer)
+
 const store = configureStore({
-    reducer: counterSlice.reducer
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 })
 
-store.subscribe(() => {
-    localStorage.setItem("counterSstate", JSON.stringify(store.getState()));
-});
+export const actions = counterSlice.actions;
 export default store;
 
