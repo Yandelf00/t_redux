@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import toast, { Toaster } from "react-hot-toast";
 import {
-    persistStore,
     persistReducer,
     FLUSH,
     REHYDRATE,
@@ -25,6 +25,7 @@ const counterSlice = createSlice({
             if (state.counter!==null)
             {
                 state.counter++;
+                toast.success("added!");
             }
         },
         decrement(state) {

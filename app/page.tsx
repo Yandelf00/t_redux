@@ -4,6 +4,8 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { actions } from '@/store'
+// import toast from "react-hot-toast";
+// for some reason toast doesn't work so imma add this note here;
 
 
 export default function Home() {
