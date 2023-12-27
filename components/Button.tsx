@@ -9,10 +9,10 @@ export default function Button() {
 
     const dispatch = useDispatch()
     const increment = ()=>{
-        dispatch(actions.increment(0));
+        dispatch(actions.increment());
     }
     function sub(){
-        dispatch(actions.decrement(0))
+        dispatch(actions.decrement())
     }
     
     function toggle(){
@@ -21,32 +21,59 @@ export default function Button() {
     function toggleback(){
         setBooll(prebooll => false)
     }
-    if (booll === false) {
-        return (
-            <div>
+    return(
+        <>
+            {booll === false ? (
                 <div>
-                <button onClick={toggle} className='text-[2rem] text-white bg-slate-800'>show cart</button>
+                    <div>
+                        <button onClick={toggle} className='text-[2rem] text-white bg-slate-800'>show cart</button>
+                    </div>
                 </div>
-            </div>
-        )
-    }
-    else {
-        return(
-            <>
-                <div className='fixed z-[1100] bg-white'>
+            ) : (
+                <>
+                    <div className='fixed z-[1100] bg-white'>
                     <div className='text-[3rem]'> {count} </div>
                     <div className='flex flex-row w-full h-[5rem] justify-center'>
                         <div className='text-[3rem] mr-20 cursor-pointer' onClick={increment}>+</div>
                         <div className='text-[3rem] ml-10 cursor-pointer' onClick={sub}>-</div>
                     </div>
                     
-                </div>
-                <div onClick={toggleback} className='fixed z-[1000] top-0 left-0 w-full h-full bg-black opacity-[50%] 
+                    </div>
+                    <div onClick={toggleback} className='fixed z-[1000] top-0 left-0 w-full h-full bg-black opacity-[50%] 
                     overflow-y-hidden'>
-                    </div>   
-                
-            </>
-        )
-    }
+                    </div>
+                 </>
+            )}
+        </>
+    )
     
 }
+
+
+// if (booll === false) {
+//     return (
+//         <div>
+//             <div>
+//             <button onClick={toggle} className='text-[2rem] text-white bg-slate-800'>show cart</button>
+//             </div>
+//         </div>
+//     )
+// }
+// else {
+//     return(
+//         <>
+//             <div className='fixed z-[1100] bg-white'>
+//                 <div className='text-[3rem]'> {count} </div>
+//                 <div className='flex flex-row w-full h-[5rem] justify-center'>
+//                     <div className='text-[3rem] mr-20 cursor-pointer' onClick={increment}>+</div>
+//                     <div className='text-[3rem] ml-10 cursor-pointer' onClick={sub}>-</div>
+//                 </div>
+                
+//             </div>
+//             <div onClick={toggleback} className='fixed z-[1000] top-0 left-0 w-full h-full bg-black opacity-[50%] 
+//                 overflow-y-hidden'>
+//                 </div>   
+            
+//         </>
+//     )
+// }
